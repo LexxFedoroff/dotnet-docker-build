@@ -3,11 +3,12 @@ FROM dotnet-base:latest
 WORKDIR /app
 
 # restore dependencies as distinct layer
-COPY *.csproj ./
+COPY *.csproj build.cake ./
 COPY ClientApp/package*.json ./ClientApp/
 
-RUN dotnet restore \
-    && cd ClientApp && npm ci && cd -
+RUN dotnet restore &&  \
+    cd ClientApp && npm ci && cd - && \
+    cake
 
 # add source code and build
 COPY . /app
