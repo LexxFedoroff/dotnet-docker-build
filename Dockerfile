@@ -1,8 +1,4 @@
-FROM microsoft/dotnet:sdk as build-stage
-
-# install build dependecies
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-    && apt-get install -y nodejs
+FROM dotnet-base:latest
 
 WORKDIR /app
 
