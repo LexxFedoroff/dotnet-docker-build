@@ -7,11 +7,14 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 WORKDIR /app
 
 # restore dependencies as distinct layer
-ADD *.csproj ./
-RUN dotnet restore
+COPY *.csproj ./
+COPY ClientApp/package*.json ./ClientApp/
+
+RUN dotnet restore \
+    && cd ClientApp && npm ci && cd -
 
 # add source code and build
-ADD . /app
+COPY . /app
 RUN dotnet publish -c Release -o out --no-restore
 
 # build runtime image
