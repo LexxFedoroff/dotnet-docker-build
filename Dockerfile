@@ -1,4 +1,4 @@
-FROM dotnet-base:latest
+FROM dotnet-base:latest as build-stage
 
 WORKDIR /app
 
