@@ -1,9 +1,15 @@
-var target = Argument("target", "Default");
+const string projectName = "docker-build.csproj";
 
-Task("Default")
+var configuration = Argument("configuration", "Release");
+
+Task("Build")
   .Does(() =>
 {
-  Information("Hello World!");
+  DotNetCoreBuild(projectName, new DotNetCoreBuildSettings{
+    NoRestore = true,
+    Configuration = configuration
+  });
 });
 
+var target = Argument("target", "Build");
 RunTarget(target);
