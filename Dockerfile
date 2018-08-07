@@ -10,7 +10,7 @@ RUN cake -target=Restore
 
 # add source code and build
 COPY . /app
-RUN dotnet publish -c Release -o out --no-restore
+RUN cake -target=Publish
 
 # build runtime image
 FROM microsoft/dotnet:aspnetcore-runtime

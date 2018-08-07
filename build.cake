@@ -20,10 +20,19 @@ Task("Build")
     });
   });
 
+Task("Publish")
+  .Does(() =>{
+    DotNetCorePublish(projectName, new DotNetCorePublishSettings{
+      NoRestore = true,
+      Configuration = configuration,
+      OutputDirectory = "./out"
+    });
+  });
+
 // Host Tasks
 Task("Build-In-Docker")
   .Does(()=> {
-    DockerBuild(".");
+    DockerBuild(new DockerImageBuildSettings { Tag = new [] { "docker-build-app" } },  ".");
   });
 
 var target = Argument("target", useDocker ? "Build-In-Docker" : "Build");
