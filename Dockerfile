@@ -6,9 +6,7 @@ WORKDIR /app
 COPY *.csproj build.cake ./
 COPY ClientApp/package*.json ./ClientApp/
 
-RUN dotnet restore &&  \
-    cd ClientApp && npm ci && cd - && \
-    cake
+RUN cake -target=Restore
 
 # add source code and build
 COPY . /app
